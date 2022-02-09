@@ -143,7 +143,7 @@ int main(void)
   if (dfu_start) NRF_POWER->GPREGRET = 0;
 
   // Save bootloader version to pre-defined register, retrieved by application
-  BOOTLOADER_VERSION_REGISTER = (MK_BOOTLOADER_VERSION);
+  // BOOTLOADER_VERSION_REGISTER = (MK_BOOTLOADER_VERSION);
 
   // This check ensures that the defined fields in the bootloader corresponds with actual setting in the chip.
   APP_ERROR_CHECK_BOOL(*((uint32_t *)NRF_UICR_BOOT_START_ADDRESS) == BOOTLOADER_REGION_START);

@@ -49,7 +49,7 @@ Change to the directory `bootloader/`, execute
 
 then merge the image `pca10059_bootloader-0.3.2-dirty-nosd.hex` with the soft device S140
 
-`hexmerge.py _build-pca10059/pca10059_bootloader-0.3.2-dirty-nosd.hex ./lib/softdevice/s140_nrf52_6.1.1/s140_nrf52_6.1.1_softdevice.hex -o pca10059_bootloader.hex`
+`hexmerge.py _build-pca10059/pca10059_bootloader-96503b4-dirty-nosd.hex ./lib/softdevice/s140_nrf52_6.1.1/s140_nrf52_6.1.1_softdevice.hex -o pca10059_bootloader.hex`
 
 `hexmerge` can be found in [IntelHex](https://pypi.org/project/IntelHex/).
 
@@ -73,7 +73,7 @@ Optionally, `mpy-cross` can be used to precompile the python source code.
 
 The implementation is included in the image of the adapted CircuitPython. Therefore, in execute
 
-`utils/make_cheader.py *.mpy main.py boot.py cert.der`
+`python3 utils/make_cheader.py *.mpy main.py boot.py cert.der`
 
 which generates a C header file `fido-drive.h`, which as to be copied to `circuitpython/supervisor/shared/`. If CircuitPython boots it copies the implementation to the internal FAT filesystem. Then, as usual `boot.py` and then `main.py` is executed.
 
