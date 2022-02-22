@@ -1,5 +1,5 @@
 from micropython import const
-from board import LED2_R
+from board import LED2
 from cc310 import hmac_sha256, ec_genkeypair, ec_sign, aes_cbc
 from util import der_encode_signature
 from keystore import KS_U2F, Counter
@@ -71,7 +71,7 @@ def u2f(apdu):
         return b'U2F_V2' + SW_NO_ERROR
     elif ins == 0xc0:  # U2F_VENDOR_FIRST
         # reset U2F device = generate new keys
-        if u2f_up_check(LED2_R) != UP_CHECK_OK:
+        if u2f_up_check(LED2) != UP_CHECK_OK:
             return SW_CONDITIONS_NOT_SATISFIED
         ks_u2f.gen_new_keys()
         ks_u2f.save_keystore()
@@ -99,7 +99,7 @@ def u2f_register(req):
         return SW_COMMAND_ABORTED  # error of nrf cryptocell
     signature = der_encode_signature(*ret)  # ret = r,s
     try:
-        with open('cert.der', 'rb') as fin:
+        with open('attestation.der', 'rb') as fin:
             CERTIFICATE_DER = fin.read()
     except OSError:
         return SW_COMMAND_ABORTED

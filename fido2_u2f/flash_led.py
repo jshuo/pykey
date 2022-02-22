@@ -12,9 +12,9 @@ def flash_led(num):
         led = DigitalInOut(board.LED3)
     if num == 4: 
         led = DigitalInOut(board.LED4)
-
+        
     led.direction = Direction.OUTPUT
-    for i in range(2):
+    for i in range(10):
         if i % 2 == 0:
             led.value = True
         else:

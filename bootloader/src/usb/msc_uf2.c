@@ -163,8 +163,7 @@ void tud_msc_write10_complete_cb(uint8_t lun)
   // uf2 file writing is complete --> complete DFU process
 
   if (_wr_state.numBlocks && (_wr_state.numWritten >= _wr_state.numBlocks)) {
-    if (rsa_verify(_wr_state.hash, _wr_state.signature) != 0) NVIC_SystemReset();
-
+    // if (rsa_verify(_wr_state.hash, _wr_state.signature) != 0) NVIC_SystemReset();
     led_state(STATE_WRITING_FINISHED);
 
     dfu_update_status_t update_status;

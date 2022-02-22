@@ -51,7 +51,7 @@ for openssl_subcommand in ecparam req x509; do
 done
 
 # Change to certs directory
-workdir="../certs"
+workdir="../fido2_u2f"
 cd "$workdir"
 
 # Generate CA key and certificate

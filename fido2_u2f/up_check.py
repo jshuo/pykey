@@ -1,7 +1,8 @@
 from micropython import const
 from time import sleep, monotonic
-from board import LED1, SW1
-from digitalio import DigitalInOut, Direction
+from board import LED1, BUTTON1
+from digitalio import DigitalInOut, Direction, Pull
+from wink import flash_led
 from ctap_errors import CTAP2_OK, CTAP2_ERR_ACTION_TIMEOUT, CTAP2_ERR_KEEPALIVE_CANCEL
 
 DELAY_TIME = const(10)   # 10 ms
@@ -11,8 +12,9 @@ WINK_FREQ = const(10)  # Hz
 def up_check(channel, led_type=LED1):
     led = DigitalInOut(led_type)
     led.direction = Direction.OUTPUT
-    button = DigitalInOut(SW1)
+    button = DigitalInOut(BUTTON1)
     button.direction = Direction.INPUT
+    button.pull = Pull.UP
     MAX_TIME = const(10000)  # 10 seconds
     counter = 0
     ka_counter = 0
@@ -45,7 +47,7 @@ def up_check(channel, led_type=LED1):
 def u2f_up_check(led_type=LED1):
     led = DigitalInOut(led_type)
     led.direction = Direction.OUTPUT
-    button = DigitalInOut(SW1)
+    button = DigitalInOut(BUTTON1)
     button.direction = Direction.INPUT
     MAX_U2F_TIME = const(50)  # 50 ms
     counter = 0
@@ -70,15 +72,19 @@ class ButtonLongPressed:
         self.period = period
         self.last_button_pressed = monotonic() - 10.0
         self.button_pressed_duration = 0.0
+        # flash_led(4)
 
     def check(self):
-        button = DigitalInOut(SW1)
+        button = DigitalInOut(BUTTON1)
         button.direction = Direction.INPUT
+        button.pull = Pull.UP
         if button.value is True:
+            # flash_led(2)
             # no button button pressed
             button.deinit()
             return False
         else:
+            # flash_led(1)
             button.deinit()
             t = monotonic()
             if t - self.last_button_pressed < 0.05:

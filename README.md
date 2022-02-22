@@ -58,22 +58,26 @@ In order to put the bootloader onto the NRF52840 Dongle this [OpenOCD guidance](
 ## Adapted CircuitPython
 The [original project](https://github.com/adafruit/circuitpython) gives a general guidance for building CircuitPython. In the `nrf` directory execute
 
-`make BOARD=pca10059 -j17 USER_C_MODULES=../../../modules`
+`make DEBUG=1 BOARD=pca10059 -j17 USER_C_MODULES=../../../modules`
+
+
+`make V=1 DEBUG=1 BOARD=pca10056 -j17 USER_C_MODULES=../../../modules`
 
 The modules directory contains one module only `cc310`. It holds the implementation of the cryptographic libraries.
 
 The build target is directory `build-pca10059/`. It holds the compiled firmware `firmware.uf2`. This firmware needs to be signed. A python script can do the job
 
-`python sign_uf2.py build-pca10059/firmware.uf2 -o build-pca10059/signed_firmware.uf2 -r rsa_parameter.txt`
+`python3 sign_uf2.py build-pca10059/firmware.uf2 -o build-pca10059/signed_firmware.uf2 -r rsa_parameter.txt`
 
 The parameter `rsa_parameter.txt` is a plain text file that holds the RSA parameters modulus and signing/secret key in hexadecimal.
 
 ## FIDO2/U2F Implementation
 Optionally, `mpy-cross` can be used to precompile the python source code.
 
+
 The implementation is included in the image of the adapted CircuitPython. Therefore, in execute
 
-`python3 utils/make_cheader.py *.mpy main.py boot.py cert.der`
+`python3 utils/make_cheader.py *.mpy main.py boot.py attestation.der`
 
 which generates a C header file `fido-drive.h`, which as to be copied to `circuitpython/supervisor/shared/`. If CircuitPython boots it copies the implementation to the internal FAT filesystem. Then, as usual `boot.py` and then `main.py` is executed.
 

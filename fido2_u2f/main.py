@@ -1,3 +1,5 @@
+from wink import flash_led
+
 def initialize():
     from microcontroller import nvm
     if nvm[:5] == bytes(5):
@@ -23,9 +25,11 @@ def loop():
     ret = None
     while True:
         if blp.check() is True:
+            # flash_led(3)
             reboot_to_bootloader()
         ret = h.receive()
         if ret is not None:
+            # flash_led(4)
             cmd, data = ret
             if cmd in (hid.CTAPHID_MSG, hid.CTAPHID_CBOR):
                 if cmd == hid.CTAPHID_MSG:
@@ -40,6 +44,7 @@ def loop():
 
 initialize()
 try:
+    flash_led(1)
     loop()
 except:
     while True:

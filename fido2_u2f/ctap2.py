@@ -1,5 +1,5 @@
 from time import monotonic
-from board import LED2_R
+from board import LED2
 from ctap_errors import *
 from cc310 import sha256, hmac_sha256, ec_genkeypair, ec_sign, ec_dh, aes_cbc, aes256_cbc, random
 from util import der_encode_signature, reboot_to_bootloader
@@ -265,7 +265,7 @@ def makeCredential(data, channel):
 
     # https://www.w3.org/TR/webauthn/#sctn-attestation
     try:
-        with open('cert.der', 'rb') as fin:
+        with open('attestation.der', 'rb') as fin:
             CERTIFICATE_DER = fin.read()
     except OSError:
         return CTAP1_ERR_OTHER
@@ -628,7 +628,7 @@ def reset(channel):
     # user presence required
     #if monotonic() - POWER_UP > 10.0:
     #    return CTAP2_ERR_NOT_ALLOWED
-    ret = up_check(channel, LED2_R)
+    ret = up_check(channel, LED2)
     if ret == CTAP2_ERR_KEEPALIVE_CANCEL:
         return CTAP2_ERR_KEEPALIVE_CANCEL
     elif ret == CTAP2_ERR_USER_ACTION_TIMEOUT:
