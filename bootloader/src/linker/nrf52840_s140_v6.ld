@@ -14,6 +14,8 @@ MEMORY
   FLASH (rx) : ORIGIN = 0xF4000, LENGTH = 0xFE000-0xF4000-2048-32 /* 38 KB */
   SECEC (rx) : ORIGIN = 0xfd7e0, LENGTH = 0x20
 
+  SEEDPHRASE (rx) : ORIGIN = 0xD0000, LENGTH = 0x5000 
+
   BOOTLOADER_CONFIG (r): ORIGIN = 0xFE000 - 2048, LENGTH = 2048
 
   /** Location of mbr params page in flash. */
@@ -50,6 +52,12 @@ SECTIONS
   {
   *(.secec);
   } > SECEC
+
+  .mySection  :
+  {
+    KEEP(*(.mySection)) /* keep my variable even if not referenced */
+  } > SEEDPHRASE
+
 
   .fs_data_out ALIGN(4):
   {

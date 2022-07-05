@@ -161,6 +161,7 @@ C_SOURCE_FILES += $(SRC_PATH)/usb/uf2/sha256.c
 C_SOURCE_FILES += $(SRC_PATH)/usb/bn.c
 C_SOURCE_FILES += $(SRC_PATH)/usb/rsa_verify.c
 C_SOURCE_FILES += $(SRC_PATH)/secec.c
+C_SOURCE_FILES += $(SRC_PATH)/seed.c
 
 # TinyUSB stack
 C_SOURCE_FILES += $(TUSB_PATH)/portable/nordic/nrf5x/dcd_nrf5x.c
@@ -227,7 +228,7 @@ INC_PATHS = $(addprefix -I,$(IPATH))
 #flags common to all targets
 CFLAGS += -mcpu=cortex-m4
 CFLAGS += -mthumb -mabi=aapcs --std=gnu99
-CFLAGS += -Wall -Werror -Os -g3
+CFLAGS += -Wall  -Os -g3
 CFLAGS += -mfloat-abi=hard -mfpu=fpv4-sp-d16
 
 # keep every function in separate section. This will allow linker to dump unused functions
