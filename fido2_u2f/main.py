@@ -13,28 +13,24 @@ def initialize():
 
 def loop():
     import hid
-    from u2f import u2f
     from ctap2 import ctap2
     from ctap_errors import CTAP2_ERR_KEEPALIVE_CANCEL
-    from up_check import ButtonLongPressed
-    from util import reboot_to_bootloader
-
+    print('loop')
     h = hid.hid()
-    blp = ButtonLongPressed(4)
 
     ret = None
+    print(ret)
     while True:
-        if blp.check() is True:
-            # flash_led(3)
-            reboot_to_bootloader()
         ret = h.receive()
+        print(ret)
         if ret is not None:
-            # flash_led(4)
+            flash_led(4)
             cmd, data = ret
             if cmd in (hid.CTAPHID_MSG, hid.CTAPHID_CBOR):
                 if cmd == hid.CTAPHID_MSG:
-                    h.send(cmd, u2f(data))
+                   print("CTAPHID_MSG")
                 else:
+                    print("CTAPHID_CBOR")
                     resp = ctap2(data, h)
                     if h.is_cancelled():
                         h.send(cmd, CTAP2_ERR_KEEPALIVE_CANCEL)
@@ -42,9 +38,9 @@ def loop():
                         h.send(cmd, resp)
 
 
-initialize()
+# initialize()
 try:
-    flash_led(1)
+    # flash_led(1)
     loop()
 except:
     while True:

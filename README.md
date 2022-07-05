@@ -66,8 +66,11 @@ The [original project](https://github.com/adafruit/circuitpython) gives a genera
 The modules directory contains one module only `cc310`. It holds the implementation of the cryptographic libraries.
 
 The build target is directory `build-pca10059/`. It holds the compiled firmware `firmware.uf2`. This firmware needs to be signed. A python script can do the job
+`generate-rsa.py` to rsa_parameter.txt
+https://kim85326.github.io/2019/04/17/RSA-%E5%8A%A0%E5%AF%86%E6%B5%81%E7%A8%8B/
+公鑰與私鑰的產生原理 · (n, e) 是公鑰. n 為模係數(modulus)，e 為公鑰指數(public key exponent) · (n, d) 是私鑰. n 為模係數，與公鑰模係數同值，d 為私 
 
-`python3 sign_uf2.py build-pca10059/firmware.uf2 -o build-pca10059/signed_firmware.uf2 -r rsa_parameter.txt`
+`python3 sign_uf2.py build-pca10056/firmware.uf2 -o build-pca10056/signed_firmware.uf2 -r rsa_parameter.txt`
 
 The parameter `rsa_parameter.txt` is a plain text file that holds the RSA parameters modulus and signing/secret key in hexadecimal.
 

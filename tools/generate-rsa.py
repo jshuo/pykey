@@ -75,5 +75,8 @@ hash = int.from_bytes(sha512(msg).digest(), byteorder='big')
 signature = pow(hash, keyPair.d, keyPair.n)
 print("Signature:", hex(signature))
 
+msg = b'A message for signing'
+hash = int.from_bytes(sha512(msg).digest(), byteorder='big')
+
 hashFromSignature = pow(signature, keyPair.e, keyPair.n)
 print("Signature valid:", hash == hashFromSignature)

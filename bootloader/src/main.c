@@ -130,6 +130,8 @@ void softdev_mbr_init(void)
   sd_mbr_command(&com);
 }
 
+
+
 int main(void)
 {
   // SD is already Initialized in case of BOOTLOADER_DFU_OTA_MAGIC
@@ -147,6 +149,7 @@ int main(void)
 
   // This check ensures that the defined fields in the bootloader corresponds with actual setting in the chip.
   APP_ERROR_CHECK_BOOL(*((uint32_t *)NRF_UICR_BOOT_START_ADDRESS) == BOOTLOADER_REGION_START);
+
 
   board_init();
   bootloader_init();

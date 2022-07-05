@@ -42,6 +42,7 @@ class hid():
     def __init__(self):
         self.h = None
         for device in usb_hid.devices:
+            print(device.usage_page)
             if device.usage_page == FIDO_USAGE_PAGE and \
                     device.usage == FIDO_USAGE:
                 self.h = device
@@ -152,6 +153,7 @@ class hid():
         self.send(CTAPHID_ERROR, error.to_bytes(1, 'big'))
 
     def hid_init(self, data):
+        print ('hid init')
         if len(data) != 8:
             self.send_error(ERR_INVALID_SEQ)
         else:

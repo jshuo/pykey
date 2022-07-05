@@ -58,13 +58,6 @@ SECTIONS
     KEEP(*(.mySection)) /* keep my variable even if not referenced */
   } > SEEDPHRASE
 
-<<<<<<< HEAD
-=======
-  .text.special : {
-      . = 0x1500;
-      *libnrf_cc310_0.9.12.a:*(.text .text.*)
-  } > CC310
->>>>>>> f0d60d4617bdeeb8914bb4c82f8858f2d7304e37
 
   .fs_data_out ALIGN(4):
   {

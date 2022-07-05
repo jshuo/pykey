@@ -19,5 +19,5 @@ def flash_led(num):
             led.value = True
         else:
             led.value = False
-        sleep(0.5)
+        sleep(0.01)
     led.deinit()

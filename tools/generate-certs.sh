@@ -58,6 +58,7 @@ cd "$workdir"
 openssl ecparam -genkey -name prime256v1 -out ca.key
 openssl req -config myserver.cnf -x509 -new -batch -SHA256 -nodes -key ca.key -days 3650 -out ca.crt
 
+
 # Generate attestation key
 openssl ecparam -genkey -name prime256v1 -out attestation.key
 

@@ -58,3 +58,4 @@ bin/
 *.jlink
 
 TAGS
+lib/
